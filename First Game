@@ -1,0 +1,87 @@
+import random
+
+print("~~~ WELCOME TO GUESS THE NUMBER ~~~")
+
+nama = input("Masukkan Nama: ")
+print("Halo, ", nama,"!, Siap bermain? Y/N?")
+
+# Data Game ====
+total_skor = 0
+koin = 0
+
+nyawa_awal = 5
+nyawa_dibeli = 0
+# Data Game ====
+
+ready = input(nama + ": ")
+if ready == "Y" or ready == "y":
+    print ("Let`s start!", nama)
+else:
+     print("See ya!", nama)
+     exit()
+
+while True:
+    angka_rahasia = random.randint(1,2)
+    nyawa = nyawa_awal + nyawa_dibeli
+    skor = 100
+    
+    print("Koin : ", koin, ", Nyawa : ", nyawa)
+    
+    menang = False
+
+    while nyawa > 0:
+        tebakan = int(input("Masukkan angka 1-100: "))
+        
+        
+        if tebakan == angka_rahasia:
+            print("Benar!", angka_rahasia)
+            menang = True
+            break
+        elif tebakan < angka_rahasia:
+            print(tebakan, "Terlalu rendah!")
+        else:
+            print(tebakan,"Terlalu tinggi!")
+            
+        nyawa -= 1
+        skor -= 10
+        print("Nyawa tersisa: ", nyawa, ", Skor: ", skor)
+        
+    if menang:
+        bonus = nyawa * 20
+        print("Bonus skor dari sisa nyawa: ", bonus)
+        
+        total_skor += skor + bonus
+        print("Total skor kamu: ", total_skor)
+    else:
+        print("Game Over!, angka rahasia adalah: ", angka_rahasia)
+        
+        
+    # Convert koin 🪙
+    tambah_koin = total_skor // 100
+    if tambah_koin > 0:
+        koin += tambah_koin
+        total_skor = total_skor % 100
+        print("🪙 Kamu mendapatkan", tambah_koin,"🪙 Koin!")
+        
+    print("🪙 Koin kamu sekarang: ", koin,"🪙")
+    
+    # Shop 🛒
+    print("\n🛒 SHOP")
+    print("1. Beli +1 nyawa permanen (5 koin)")
+    print("2. Lewati toko")
+    
+    pilihan = input("Pilih : ")
+    
+    if pilihan == "1":
+        if koin >= 5:
+            koin -= 5
+            nyawa_dibeli += 1
+            print("❤️ Nyawa permanen bertambah!")
+        else:
+            print("❌ Koin tidak cukup!")
+
+
+    ulang = input("Main lagi? (Y/N): ")
+    if ulang.lower() != "y":
+        print("Goodbye!, ", nama)
+        break
