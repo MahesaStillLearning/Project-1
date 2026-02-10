@@ -1,0 +1,153 @@
+# ====Mahesa Was Here====
+import random
+
+# Def Area ===============================
+
+def main_menu():
+    while True:
+        print("===Guess The Number===")
+        print()
+        print("\tMenu:")
+        print()
+        print("\t1. Start Game")
+        print("\t2. Shop")
+        print("\t3. Exit")
+        print()
+        print("======================")
+        print()
+        
+        ready = int(input("Pilih menu (1-3): "))
+        print()
+        print()
+        if ready == 1:
+            start()
+        elif ready == 2:
+            shop()
+        elif ready == 3:
+            print("See ya!")
+            exit()
+            
+    
+def start():
+    nama = input("Sebelum memulai, masukkan nama kamu: ")
+    print ("Let`s Start!", nama)
+    print()
+    global total_skor
+    
+    menang = False
+    while True:
+        nyawa = nyawa_awal
+        skor = 100
+        while nyawa > 0:
+            tebakan = int(input("Masukkan angka 1-100: "))
+            if tebakan == angka_rahasia:
+                print("Benar!", angka_rahasia)
+                menang = True
+                break
+            elif tebakan < angka_rahasia:
+                print(tebakan, "Terlalu rendah!, Nyawa:", nyawa -1,", Skor:", skor - 10)
+            else:
+                print(tebakan, "Terlalu tinggi!, Nyawa:", nyawa -1,", Skor:", skor - 10)
+        
+            nyawa -= 1
+            skor -= 10
+            
+        if menang:
+            bonus = nyawa * 20
+            print("Bonus skor dari sisa nyawa: ", bonus)
+            total_skor += skor + bonus
+            print("Total skor kamu: ", total_skor)
+            
+        
+        ulang = input("Mau ulangi? (Y/N): ").lower()
+        if ulang != "y":
+            print("Kamu dibawa kembali ke menu")
+            print()
+            return
+        
+def cv(total_skor):
+    return total_skor // 10
+    
+def shop():
+    while True:
+        print("=====WELCOME TO THE SHOP=====")
+        print()
+        print("1. Beli Nyawa (5 Koin = 1 Nyawa)")
+        print("2. Kembali ke Menu Utama")
+        print()
+        print("=============================")
+        print()
+        plh = int(input("Pilih menu (1-2): "))
+        if plh == 1:
+            shop_nyawa()
+        elif plh == 2:
+            main_menu()
+        
+def shop_nyawa():
+    while True:
+        global koin
+        global nyawa_dibeli
+        print("===NYAWA===")
+        print("Koin kamu: ", koin)
+        print()
+        print("1. Beli 1 Nyawa (5 Koin)")
+        print("2. Tukar skor menjadi koin (10 Skor = 1 Koin)")
+        print()
+        print("===========")
+        print()
+        nywa = int(input("Pilih menu (1-2): "))
+        if nywa == 1:
+            jumlah = int(input("Mau beli berapa nyawa? "))
+            total_harga = jumlah * 5
+            if koin >= total_harga:
+                koin -= total_harga
+                nyawa_dibeli += jumlah
+                print("❤️ Nyawa permanen bertambah!")
+            elif koin < total_harga:
+                    print("❌ Koin tidak cukup!")
+            
+            else:
+                print("❌ INVALID!")
+                return
+                
+        elif nywa == 2:
+            tukar_koin()
+
+def tukar_koin():
+    global koin
+    global total_skor
+    print("===TUKAR KOIN===")
+    print()
+    print("1. Tukar Skor menjadi Koin (10 Skor = 1 Koin)")
+    print("2. Kembali ke Menu Utama")
+    print()
+    print("=================")
+    convert = int(input("Pilih menu (1-2): "))
+    if convert == 1:
+        tambah_koin = cv(total_skor)
+        koin += tambah_koin
+    elif convert ==2:
+        shop()
+            
+            
+
+# Def Area ===============================
+
+
+
+# Data Area ===============================
+    
+angka_rahasia = random.randint(1,2)
+
+koin = 0
+total_skor = 0
+
+nyawa_dibeli = 0
+nyawa_awal = 5
+
+# Data Area ===============================
+
+
+main_menu()
+
+#Note: Lil bug lol, fixed tomorrow... or when the mood hits :P
