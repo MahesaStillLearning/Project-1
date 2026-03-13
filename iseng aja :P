@@ -1,0 +1,59 @@
+import time
+import random
+
+def main_menu ():
+    while True:
+        print("="*15)
+        print("TO DO LIST")
+        print("")
+        print("1. Tambah list")
+        print("2. Lihat list")
+        print("3. Generator project")
+        print("4. EXIT")
+        print("")
+        print("="*15)
+        time.sleep(3)
+        pilihan = int(input("What's your call?: "))
+        if pilihan == 1:
+            tambah()
+        elif pilihan == 2:
+            lihat()
+        elif pilihan == 3:
+            generator()
+        elif pilihan == 4:
+            exit()
+        else:
+            print("INVALID")
+            exit()
+            
+            
+def tambah():
+    while True:
+        global tugas
+        daftar = input("Masukkan tugas (kembali pilih 0): ")
+        if daftar.isdigit():
+            if "0" == daftar:
+                main_menu()
+        tugas.append(daftar)
+        print("daftar:", tugas)
+        
+def lihat():
+    while True:
+        print("Ini list kamu: ", tugas)
+        kembali = input("Kembali masukkan angka apa saja: ")
+        if kembali.isdigit():
+            main_menu()
+        else:
+            main_menu()
+            
+def generator():
+    while True:
+        project = ["To-Do List", "Kalkulator", "Quiz Game"]
+        print(random.choice(project))
+        stop = input("Generate lagi? (y/n): ").lower()
+        if stop == "n":
+            break
+# Variabel
+tugas = []
+        
+main_menu()
